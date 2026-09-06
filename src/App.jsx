@@ -138,7 +138,7 @@ export default function App() {
 
   return (
     <div className="container">
-      <audio ref={audioRef} src="/music.mp3" loop />
+      <audio ref={audioRef} src="./music.mp3" loop />
 
       <AnimatePresence mode="wait">
         
@@ -281,19 +281,19 @@ export default function App() {
             
             <div className="photo-stack">
               <motion.div className="photo-card" whileHover={{ scale: 1.02 }}>
-                <video src="/yuri1.mp4" autoPlay loop muted playsInline style={{width: '100%', borderRadius: '8px', marginBottom: '20px'}} />
+                <video src="./yuri1.mp4" autoPlay loop muted playsInline style={{width: '100%', borderRadius: '8px', marginBottom: '20px'}} />
                 <p className="caption">You literally give me life. ❤️</p>
               </motion.div>
               <motion.div className="photo-card" whileHover={{ scale: 1.02 }}>
-                <img src="/yuri2.jpeg" alt="Us" style={{width: '100%', borderRadius: '8px', marginBottom: '20px', objectFit: 'cover'}} />
+                <img src="./yuri2.jpeg" alt="Us" style={{width: '100%', borderRadius: '8px', marginBottom: '20px', objectFit: 'cover'}} />
                 <p className="caption">Giving main character energy.</p>
               </motion.div>
               <motion.div className="photo-card" whileHover={{ scale: 1.02 }}>
-                <img src="/yuri3.jpeg" alt="Us" style={{width: '100%', borderRadius: '8px', marginBottom: '20px', objectFit: 'cover'}} />
+                <img src="./yuri3.jpeg" alt="Us" style={{width: '100%', borderRadius: '8px', marginBottom: '20px', objectFit: 'cover'}} />
                 <p className="caption">My absolute favorite person.</p>
               </motion.div>
               <motion.div className="photo-card" whileHover={{ scale: 1.02 }}>
-                <video src="/yuri4.mp4" autoPlay loop muted playsInline style={{width: '100%', borderRadius: '8px', marginBottom: '20px'}} />
+                <video src="./yuri4.mp4" autoPlay loop muted playsInline style={{width: '100%', borderRadius: '8px', marginBottom: '20px'}} />
                 <p className="caption">I can't wait for a lifetime of this.</p>
               </motion.div>
             </div>
@@ -320,7 +320,7 @@ export default function App() {
                     
                     {/* Voice Note Button */}
                     <div style={{marginTop: '40px', textAlign: 'center'}}>
-                      <audio ref={voiceRef} src="/voicenote.mp3" onEnded={handleVoiceEnded} />
+                      <audio ref={voiceRef} src="./voicenote.mp3" onEnded={handleVoiceEnded} />
                       <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
