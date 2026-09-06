@@ -57,6 +57,10 @@ export default function App() {
   const [envelopeOpened, setEnvelopeOpened] = useState(false);
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
+  
+  const [reviewText, setReviewText] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSent, setIsSent] = useState(false);
 
   const audioRef = useRef(null);
   const holdTimerRef = useRef(null);
@@ -104,6 +108,23 @@ export default function App() {
   const endHold = () => {
     setIsHolding(false);
     clearTimeout(holdTimerRef.current);
+  };
+
+  const handleReviewSubmit = async () => {
+    if (!reviewText) return;
+    setIsSubmitting(true);
+    try {
+      await fetch('https://formspree.io/f/mykayepd', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ rating: rating, review: reviewText })
+      });
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
+    setIsSubmitting(false);
+    setIsSent(true);
+    confetti({ particleCount: 80, spread: 60, origin: { y: 0.8 }, colors: ['#98fb98', '#ffb6c1'] });
   };
 
   const toggleVoiceNote = () => {
@@ -371,9 +392,34 @@ export default function App() {
                   </motion.span>
                 ))}
               </div>
-              <textarea rows="3" placeholder="Write a public review about this website..."></textarea>
-              <ModernButton isPrimary onClick={() => alert('Sent to Emmanuel!')}>Submit Review</ModernButton>
+              
+              <AnimatePresence mode="wait">
+                {!isSent ? (
+                  <motion.div key="form" initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
+                    <textarea 
+                      rows="3" 
+                      placeholder="Write a public review about this website..."
+                      value={reviewText}
+                      onChange={e => setReviewText(e.target.value)}
+                      disabled={isSubmitting}
+                    ></textarea>
+                    <ModernButton isPrimary onClick={handleReviewSubmit}>
+                      {isSubmitting ? 'Sending...' : 'Submit Review'}
+                    </ModernButton>
+                  </motion.div>
+                ) : (
+                  <motion.div key="success" initial={{scale: 0.5, opacity: 0}} animate={{scale: 1, opacity: 1}} transition={{type: 'spring', bounce: 0.5}}>
+                    <div style={{fontSize: '3rem', margin: '20px 0'}}>✅</div>
+                    <h3 style={{color: 'var(--dark-green)'}}>Sent Successfully!</h3>
+                    <p style={{color: '#666'}}>Thank you for your feedback!</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
+            
+            <p style={{marginTop: '40px', marginBottom: '20px', fontSize: '1.5rem', fontFamily: "'Dancing Script', cursive", color: 'var(--dark-pink)', textAlign: 'center'}}>
+              I love you soo much ❤️
+            </p>
           </motion.div>
         )}
       </AnimatePresence>
