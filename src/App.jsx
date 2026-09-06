@@ -110,9 +110,9 @@ export default function App() {
     if (isPlayingVoice) {
       voiceRef.current.pause();
       setIsPlayingVoice(false);
-      if (audioRef.current) audioRef.current.volume = 1.0;
+      if (audioRef.current) audioRef.current.play(); // resume bg music
     } else {
-      if (audioRef.current) audioRef.current.volume = 0.15; // lower bg music
+      if (audioRef.current) audioRef.current.pause(); // completely pause bg music
       voiceRef.current.play();
       setIsPlayingVoice(true);
     }
@@ -120,7 +120,7 @@ export default function App() {
 
   const handleVoiceEnded = () => {
     setIsPlayingVoice(false);
-    if (audioRef.current) audioRef.current.volume = 1.0;
+    if (audioRef.current) audioRef.current.play(); // resume bg music
   };
 
   const ModernButton = ({ onClick, children, isPrimary, id, colorClass }) => (
